@@ -14,3 +14,15 @@ dev:
 ```bash
 pip install precommit
 ```
+
+## Run
+
+take a look at the config in `configs/training.yaml` before running and update any values necessary (particularly necessary for wandb logging section).
+
+```bash
+   python runner.py fit -c configs/training.yaml \
+ --trainer.logger.name cifar_resnet \
+  --trainer.logger.save_dir weights/cifar_resnet
+```
+
+you can specify args to replace keys within the config, as shown here with `trainer.logger.name` and `trainer.logger.save_dir`
