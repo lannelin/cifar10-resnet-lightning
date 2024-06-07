@@ -28,6 +28,8 @@ def create_model(
         weights=weights,
         num_classes=num_classes,
     )
+
+    # adjust model to work with cifar10 size iamges
     model.conv1 = nn.Conv2d(
         3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
     )

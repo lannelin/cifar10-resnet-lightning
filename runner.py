@@ -4,6 +4,7 @@ from lightning.pytorch.loggers import Logger
 from pl_bolts.datamodules import CIFAR10DataModule
 
 
+# saves a copy of the cli config to the logger (wandb)
 class SaveConfigRemoteCallback(SaveConfigCallback):
     def save_config(self, trainer, pl_module, stage):
         if isinstance(trainer.logger, Logger):
@@ -24,18 +25,3 @@ def cli_main():
 
 if __name__ == "__main__":
     cli_main()
-
-
-"""
-scratch area for example runs + debug:
-
-   python runner.py fit -c configs/training.yaml \
- --trainer.logger.name cifar_resnet \
-  --trainer.logger.save_dir weights/cifar_resnet
-
-
-fit -c configs/training.yaml
---trainer.logger.name debug
---trainer.logger.save_dir debug
-
-"""
