@@ -13,6 +13,8 @@ pip install lightning torch torchvision wandb git+https://github.com/lannelin/li
 dev:
 ```bash
 pip install pre-commit
+pre-commit install
+pre-commit run --all-files
 ```
 
 ## Run
