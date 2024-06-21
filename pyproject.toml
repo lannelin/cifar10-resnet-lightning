@@ -1,5 +1,5 @@
 [project]
-name = "image-peturbation-class-plots"
+name = "resnet-lightning"
 version = "0.2.0"
 
 # TODO min,max
