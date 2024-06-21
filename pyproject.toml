@@ -1,3 +1,17 @@
+[project]
+name = "image-peturbation-class-plots"
+version = "0.2.0"
+
+# TODO min,max
+dependencies = [
+    "lightning==2.2.5",
+    "torch==2.3.1",
+    "torchvision==0.18.1",
+    "wandb==0.17.1",
+    "lightning-bolts @ git+https://github.com/lannelin/lightning-bolts.git@lightning2",
+    "jsonargparse[signatures]>=4.27.7"
+]
+
 [tool.black]
 line-length = 80
 include = '\.pyi?$'
