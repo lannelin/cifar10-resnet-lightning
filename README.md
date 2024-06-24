@@ -35,14 +35,21 @@ you can specify args to replace keys within the config, as shown here with `trai
 
 ## To/From SafeTensors
 
-(TODO get optional deps working with local editable install)
+
+TODO:
+- review security assumptions for this section:
+  - currently pickle is constructed locally rather than downloading pickle of arbitrary content
+  - does use of safetensors *sanitize* in any way? we're still converting back before load
+- get optional deps working with local editable install
+
 ```
 pip install "safetensors==0.4.3"
 ```
 
 `convert_checkpoint.py` heavily borrows from https://github.com/huggingface/safetensors/blob/v0.4.3/bindings/python/convert.py
 
-We can use this script to convert to and from [safetensor format](https://github.com/huggingface/safetensors). This is useful for sharing models without using pickle (unsafe, can run arbitrary code).
+We can use this script to convert to and from [safetensor format](https://github.com/huggingface/safetensors). This is useful for sharing models without using pickle (unsafe, can run arbitrary code). **However, at the moment we're still converting back to a pickle seralized format, before loading locally**.
+
 This conversion is lossy and will only maintain the state_dict.
 
 ```bash
