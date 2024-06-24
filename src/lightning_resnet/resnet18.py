@@ -1,9 +1,12 @@
 # adapted from https://lightning.ai/docs/pytorch/stable/notebooks/lightning_examples/cifar10-baseline.html # noqa: E501
 import logging
+from collections import OrderedDict
+from typing import Optional
 
 import lightning as L
 import torch
 import torch.nn.functional as F
+from safetensors import safe_open
 from torch import nn
 from torchmetrics.functional import accuracy
 from torchvision.models.resnet import ResNet
@@ -11,21 +14,26 @@ from torchvision.models.resnet import ResNet
 logger = logging.Logger(__name__)
 
 
-def create_model(
-    repo_or_dir: str, model: str, pretrained: bool, num_classes: int
-) -> ResNet:
-    if pretrained:
-        raise NotImplementedError("TODO: conv1")
-        # logger.warning("using pretrained weights for IMAGENET1K_V1")
-        # weights = ResNet18_Weights.IMAGENET1K_V1
-    else:
-        logger.warning("random init of weights")
-        weights = None
+def state_dict_from_safetensors(sf_filepath: str) -> OrderedDict:
+    state_dict = OrderedDict()
+    with safe_open(sf_filepath, framework="pt", device="cpu") as f:
+        for key in f.keys():
+            state_dict[key] = f.get_tensor(key)
+    return state_dict
 
+
+def create_model(
+    repo_or_dir: str,
+    model: str,
+    safetensors_path: Optional[str],
+    num_classes: int,
+) -> ResNet:
+
+    logger.warning("random init of weights")
     model = torch.hub.load(
         repo_or_dir=repo_or_dir,
         model=model,
-        weights=weights,
+        weights=None,
         num_classes=num_classes,
     )
 
@@ -34,6 +42,7 @@ def create_model(
         3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
     )
     model.maxpool = nn.Identity()
+
     return model
 
 
@@ -43,7 +52,7 @@ class ResNet18(L.LightningModule):
         num_classes: int,
         repo_or_dir: str = "pytorch/vision:v0.10.0",
         model: str = "resnet18",
-        pretrained: bool = False,
+        safetensors_path: Optional[str] = None,
     ):
         super().__init__()
 
@@ -52,10 +61,17 @@ class ResNet18(L.LightningModule):
         self.model: ResNet = create_model(
             repo_or_dir=repo_or_dir,
             model=model,
-            pretrained=pretrained,
+            safetensors_path=safetensors_path,
             num_classes=num_classes,
         )
         self.num_classes = num_classes
+
+        if safetensors_path:
+            logger.warning(f"loading state_dict from {safetensors_path}")
+            state_dict = state_dict_from_safetensors(
+                sf_filepath=safetensors_path
+            )
+            self.load_state_dict(state_dict, strict=True)
 
     def forward(self, x):
         out = self.model(x)

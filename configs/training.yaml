@@ -62,8 +62,8 @@ trainer:
 model:
   class_path: lightning_resnet.resnet18.ResNet18
   init_args:
-    pretrained: false
     num_classes: 10
+    safetensors_path: null # change to path of a .safetensors file if using pretrained
 
 optimizer:
   class_path: torch.optim.SGD
