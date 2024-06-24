@@ -1,5 +1,5 @@
 # cifar10-resnet-lightning
-starter project for lightning CLI training of CIFAR-10 with ResNet18
+Starter project for lightning CLI training of CIFAR-10 with ResNet18
 
 Current configuration achieves 86.4% accuracy on validation set after 30 epochs.
 
@@ -7,7 +7,7 @@ Current configuration achieves 86.4% accuracy on validation set after 30 epochs.
 python -m venv env
 source env/bin/activate
 pip install --upgrade pip
-pip install lightning torch torchvision wandb git+https://github.com/lannelin/lightning-bolts.git@lightning2  'jsonargparse[signatures]>=4.27.7'
+pip install -e .
 ```
 
 dev:
@@ -16,6 +16,10 @@ pip install pre-commit
 pre-commit install
 pre-commit run --all-files
 ```
+
+## Pretrained
+
+A model trained for 30 epochs, achieving 86.4% acc on val, can be found in safetensors format in [releases](https://github.com/lannelin/cifar10-resnet-lightning/releases). See below instructions for conversion instructions back to torch format .ckpt.
 
 ## Run
 
@@ -28,3 +32,19 @@ take a look at the config in `configs/training.yaml` before running and update a
 ```
 
 you can specify args to replace keys within the config, as shown here with `trainer.logger.name` and `trainer.logger.save_dir`
+
+## To/From SafeTensors
+
+(TODO get optional deps working with local editable install)
+```
+pip install "safetensors==0.4.3"
+```
+
+`convert_checkpoint.py` heavily borrows from https://github.com/huggingface/safetensors/blob/v0.4.3/bindings/python/convert.py
+
+We can use this script to convert to and from [safetensor format](https://github.com/huggingface/safetensors). This is useful for sharing models without using pickle (unsafe, can run arbitrary code).
+This conversion is lossy and will only maintain the state_dict.
+
+```bash
+python convert_checkpoint.py --help
+```
