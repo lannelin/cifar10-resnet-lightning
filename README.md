@@ -31,14 +31,6 @@ you can specify args to replace keys within the config, as shown here with `trai
 
 ## To Safetensors
 
-
-TODO:
-- get optional deps working with local editable install
-
-```
-pip install "safetensors==0.4.3"
-```
-
 `convert_checkpoint.py` heavily borrows from https://github.com/huggingface/safetensors/blob/v0.4.3/bindings/python/convert.py
 
 We can use this script to convert to [safetensor format](https://github.com/huggingface/safetensors). This is useful for sharing models without using pickle (unsafe, can run arbitrary code).

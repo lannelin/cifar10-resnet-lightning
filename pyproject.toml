@@ -10,11 +10,8 @@ dependencies = [
     "wandb==0.17.2",
     "lightning-bolts @ git+https://github.com/lannelin/lightning-bolts.git@lightning2",
     "jsonargparse[signatures]>=4.27.7"
+    "safetensors==0.4.3"
 ]
-
-# todo: doesn't seem to work with `pip install -e .[convert]`
-[project.optional-dependencies]
-convert = ["safetensors==0.4.3"]
 
 [tool.black]
 line-length = 80
