@@ -9,7 +9,7 @@ dependencies = [
     "torchvision==0.18.1",
     "wandb==0.17.2",
     "lightning-bolts @ git+https://github.com/lannelin/lightning-bolts.git@lightning2",
-    "jsonargparse[signatures]>=4.27.7"
+    "jsonargparse[signatures]>=4.27.7",
     "safetensors==0.4.3"
 ]
 
