@@ -38,7 +38,7 @@ We can use this script to convert to [safetensor format](https://github.com/hugg
 This conversion is lossy and will only maintain the state_dict.
 
 ```bash
-python convert_checkpoint.py --help
+python convert_checkpoint_to_safetensors.py --help
 ```
 
 ## Using pretrained model in Safetensor format
