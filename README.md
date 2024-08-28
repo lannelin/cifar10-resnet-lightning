@@ -54,3 +54,8 @@ python runner.py test -c configs/training.yaml \
 ```
 
 A model trained for 30 epochs, achieving 86.4% acc on val, can be found in safetensors format in [releases](https://github.com/lannelin/cifar10-resnet-lightning/releases).
+
+## TODO
+
+- modern training recipe
+- finetuning recipe
