@@ -1,5 +1,8 @@
 # cifar10-resnet-lightning
-Starter project for lightning CLI training of CIFAR-10 with ResNet18
+Starter project for lightning CLI training of CIFAR-10 with ResNet18.
+
+This is designed primarily as a template/resource for similar tasks and not optimised for performance.
+(TODO: investigate adding a modern resnet training recipe similar to [ResNet Strikes Back](https://arxiv.org/abs/2110.00476))
 
 Current configuration achieves 86.4% accuracy on validation set after 30 epochs.
 
